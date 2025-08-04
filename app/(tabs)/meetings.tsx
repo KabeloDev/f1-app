@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 
 export default function MeetingsScreen () {
-    return <View>
-        <Text style={styles.body}>Meetings screen</Text>
+    return <View style={styles.body}>
+        <Text>Meetings screen</Text>
     </View>
 }
 

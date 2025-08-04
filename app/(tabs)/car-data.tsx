@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 
 export default function CarDataScreen () {
-    return <View>
-        <Text style={styles.body}>Car data screen</Text>
+    return <View style={styles.body}>
+        <Text>Car data screen</Text>
     </View>
 }
 

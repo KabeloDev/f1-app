@@ -57,9 +57,9 @@ const styles = StyleSheet.create({
     elevation: 50,
   },
   titleContainer: {
-    fontSize: 30,
+    fontSize: 25,
     color: '#1D3D47',
-    padding: 50
+    padding: 60
   },
   reactLogo: {
     height: 400,

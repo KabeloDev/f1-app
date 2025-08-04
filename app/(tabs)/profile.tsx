@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 
-export default function DriversScreen () {
+export default function ProfileScreen () {
     return <View style={styles.body}>
-        <Text>Drivers screen</Text>
+        <Text>Profile screen</Text>
     </View>
 }
 
@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignContent: 'center',
-    alignItems: 'center',
-    color: 'black'
+    alignItems: 'center'
   },
 });
