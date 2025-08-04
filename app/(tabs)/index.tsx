@@ -4,9 +4,12 @@ import { StyleSheet, Text, View } from 'react-native';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { useEffect, useState } from 'react';
 
+import { useNavigation } from '@react-navigation/native';
+
+
 export default function HomeScreen() {
   const messages = [
-    "Welcome to F1! Your ultimate trackside companion.",
+    "Welcome to Open F1! The ultimate trackside companion.",
     "Stay updated with live race results.",
     "Get behind-the-scenes F1 insights.",
     "Follow your favorite teams and drivers.",
@@ -17,11 +20,13 @@ export default function HomeScreen() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % messages.length);
-    }, 3000); 
+    }, 4000);
 
     return () => clearInterval(interval);
   }, []);
-  
+
+  const navigation = useNavigation();
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -31,21 +36,20 @@ export default function HomeScreen() {
           style={styles.reactLogo}
         />
       }>
-      <View style={styles.background}>
-        <View style={styles.body}>
-          <Text style={styles.titleContainer}>
-            {messages[index]}
-          </Text>
-        </View>
+      <View style={styles.body}>
+        <Text style={styles.titleContainer}>
+          {messages[index]}
+        </Text>
+        <Image
+          source={require('@/assets/images/logo.png')}
+          style={styles.logo}
+        />
       </View>
     </ParallaxScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  background: {
-    backgroundColor: '#1D3D47'
-  },
   body: {
     flex: 1,
     justifyContent: 'center',
@@ -58,8 +62,9 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     fontSize: 25,
-    color: '#1D3D47',
-    padding: 50
+    color: '#354449ff',
+    padding: 50,
+    marginBottom: 50,
   },
   reactLogo: {
     height: 400,
@@ -68,4 +73,11 @@ const styles = StyleSheet.create({
     left: 0,
     position: 'absolute',
   },
+  logo: {
+    height: 150,
+    width: 150,
+    bottom: 0,
+    left: 100,
+    position: 'absolute',
+  }
 });

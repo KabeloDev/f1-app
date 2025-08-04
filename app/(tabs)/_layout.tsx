@@ -55,7 +55,7 @@ export default function TabLayout() {
         component={CarDataScreen}
         options={{
           title: 'Car Data',
-          tabBarIcon: ({ color }) => <Ionicons size={28} name="car-sport" color={color} />,
+          tabBarIcon: ({ color }) => <Ionicons size={28} name="analytics" color={color} />,
         }}
       />
 

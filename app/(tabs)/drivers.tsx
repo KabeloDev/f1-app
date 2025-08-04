@@ -32,7 +32,7 @@ export default function DriversScreen() {
         for (const driver of data) {
           if (
             driver.driver_number &&
-            driver.headshot_url && 
+            driver.headshot_url &&
             !uniqueDriversMap.has(driver.driver_number)
           ) {
             uniqueDriversMap.set(driver.driver_number, driver);
@@ -62,33 +62,41 @@ export default function DriversScreen() {
   }
 
   return (
-    <FlatList
-      data={drivers}
-      keyExtractor={(item, index) =>
-        item.driver_number?.toString() || index.toString()
-      }
-      renderItem={({ item }) => (
-        <View style={styles.driverCard}>
-          {item.headshot_url && (
-            <Image
-              source={{ uri: item.headshot_url }}
-              style={{ width: 50, height: 50, borderRadius: 25, marginRight: 12 }}
-            />
+    <View>
+      <Image
+        source={require('@/assets/images/f1.webp')}
+        style={styles.reactLogo}
+      />
+      <View style={{marginTop: 350}}>
+        <FlatList
+          data={drivers}
+          keyExtractor={(item, index) =>
+            item.driver_number?.toString() || index.toString()
+          }
+          renderItem={({ item }) => (
+            <View style={styles.driverCard}>
+              {item.headshot_url && (
+                <Image
+                  source={{ uri: item.headshot_url }}
+                  style={{ width: 50, height: 50, borderRadius: 25, marginRight: 12 }}
+                />
+              )}
+              <View>
+                <Text style={styles.name}>
+                  {item.full_name || `${item.first_name} ${item.last_name}`}
+                </Text>
+                <Text style={styles.team}>
+                  {item.team_name} {item.driver_number}
+                </Text>
+                <Text style={styles.team}>
+                  {item.country_code}
+                </Text>
+              </View>
+            </View>
           )}
-          <View>
-            <Text style={styles.name}>
-              {item.full_name || `${item.first_name} ${item.last_name}`}
-            </Text>
-            <Text style={styles.team}>
-              {item.team_name} {item.driver_number}
-            </Text>
-            <Text style={styles.team}>
-              {item.country_code}
-            </Text>
-          </View>
-        </View>
-      )}
-    />
+        />
+      </View>
+    </View>
   );
 }
 
@@ -104,4 +112,11 @@ const styles = StyleSheet.create({
   },
   name: { fontSize: 16, fontWeight: 'bold' },
   team: { fontSize: 14, color: 'gray' },
+  reactLogo: {
+    height: 400,
+    width: 450,
+    bottom: 500,
+    left: 0,
+    position: 'absolute',
+  },
 });
