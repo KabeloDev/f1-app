@@ -12,7 +12,6 @@ import HomeScreen from '.';
 import CarDataScreen from './car-data';
 import DriversScreen from './drivers';
 import MeetingsScreen from './meetings';
-import ProfileScreen from './profile';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -69,14 +68,6 @@ export default function TabLayout() {
         }}
       />
 
-      <Tab.Screen
-        name="profile"
-        component={ProfileScreen}
-        options={{
-          title: 'Profile',
-          tabBarIcon: ({ color }) => <Ionicons size={28} name="person" color={color} />,
-        }}
-      />
     </Tab.Navigator>
   );
 }
