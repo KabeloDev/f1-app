@@ -9,9 +9,10 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '.';
-import CarDataScreen from './car-data';
 import DriversScreen from './drivers';
 import MeetingsScreen from './meetings';
+import NotificationsScreen from './notifications';
+import ProfileScreen from './profile';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -46,15 +47,6 @@ export default function TabLayout() {
         component={DriversScreen}
         options={{
           title: 'Drivers',
-          tabBarIcon: ({ color }) => <Ionicons size={28} name="body" color={color} />,
-        }}
-      />
-
-      <Tab.Screen
-        name="car-data"
-        component={CarDataScreen}
-        options={{
-          title: 'Car Data',
           tabBarIcon: ({ color }) => <Ionicons size={28} name="car-sport" color={color} />,
         }}
       />
@@ -65,6 +57,24 @@ export default function TabLayout() {
         options={{
           title: 'Meetings',
           tabBarIcon: ({ color }) => <Ionicons size={28} name="earth" color={color} />,
+        }}
+      />
+
+      <Tab.Screen
+        name="notifications"
+        component={NotificationsScreen}
+        options={{
+          title: 'Notifications',
+          tabBarIcon: ({ color }) => <Ionicons size={28} name="notifications" color={color} />,
+        }}
+      />
+
+      <Tab.Screen
+        name="profile"
+        component={ProfileScreen}
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color }) => <Ionicons size={28} name="person" color={color} />,
         }}
       />
 
