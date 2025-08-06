@@ -48,6 +48,24 @@ export default function MeetingsScreen() {
     );
   }
 
+  const locationImages: Record<string, any> = {
+    'Bahrain': require('@/assets/images/countries/bahrain.webp'),
+    'Australia': require('@/assets/images/countries/australia.png'),
+    'China': require('@/assets/images/countries/china.png'),
+    'Japan': require('@/assets/images/countries/japan.png'),
+    'Saudi Arabia': require('@/assets/images/countries/saudi arabia.png'),
+    'United States': require('@/assets/images/countries/usa.png'),
+    'Italy': require('@/assets/images/countries/italy.png'),
+    'Monaco': require('@/assets/images/countries/monaco.png'),
+    'Spain': require('@/assets/images/countries/spain.png'),
+    'Canada': require('@/assets/images/countries/canada.png'),
+    'Austria': require('@/assets/images/countries/austria.png'),
+    'United Kingdom': require('@/assets/images/countries/uk.png'),
+    'Belgium': require('@/assets/images/countries/belgium.png'),
+    'Hungary': require('@/assets/images/countries/hungary.png'),
+  };
+
+
   return (
     <View>
       <Image
@@ -61,13 +79,7 @@ export default function MeetingsScreen() {
             item.meeting_key?.toString() || index.toString()
           }
           renderItem={({ item }) => (
-            <View style={styles.driverCard}>
-              {/* {item.headshot_url && (
-                       <Image
-                         source={{ uri: item.headshot_url }}
-                         style={{ width: 50, height: 50, borderRadius: 25, marginRight: 12 }}
-                       />
-                     )} */}
+            <View style={styles.meetingCard}>
               <View>
                 <Text style={styles.name}>
                   {item.country_name}
@@ -76,8 +88,16 @@ export default function MeetingsScreen() {
                   {item.meeting_official_name}
                 </Text>
                 <Text style={styles.team}>
-                  {item.year}
+                  {new Date(item.date_start!).toLocaleDateString('en-GB', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                  })}
                 </Text>
+                <Image
+                  source={locationImages[item.country_name ?? ''] || require('@/assets/images/logo.png')}
+                  style={{ width: 100, height: 50, borderRadius: 5, marginRight: 12, marginTop: 10 }}
+                />
               </View>
             </View>
           )}
@@ -95,13 +115,13 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  driverCard: {
+  meetingCard: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: 16,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
-    marginTop: 50
+    marginTop: 50,
   },
   name: { fontSize: 16, fontWeight: 'bold' },
   team: { fontSize: 14, color: 'gray' },
