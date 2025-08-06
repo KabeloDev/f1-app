@@ -1,3 +1,4 @@
+import { Driver } from '@/types/driver.type';
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -8,15 +9,6 @@ import {
   View,
 } from 'react-native';
 
-type Driver = {
-  driver_number?: number;
-  full_name?: string;
-  first_name?: string;
-  last_name?: string;
-  team_name?: string;
-  country_code?: string,
-  headshot_url?: string;
-};
 
 export default function DriversScreen() {
   const [drivers, setDrivers] = useState<Driver[]>([]);
@@ -28,6 +20,10 @@ export default function DriversScreen() {
         const response = await fetch('https://api.openf1.org/v1/drivers');
         const data: Driver[] = await response.json();
         const uniqueDriversMap = new Map<number, Driver>();
+
+        if (!response.ok) {
+          console.error('Error status code: ', response.status);
+        }
 
         for (const driver of data) {
           if (
