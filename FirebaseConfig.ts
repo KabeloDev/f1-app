@@ -9,7 +9,7 @@ import { getReactNativePersistence, initializeAuth } from "firebase/auth";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBawIL13oCaUD0d69cYZmd9fqkV4W4AHJU",
+  apiKey: process.env.EXPO_API_KEY,
   authDomain: "f1-app-3f81d.firebaseapp.com",
   projectId: "f1-app-3f81d",
   storageBucket: "f1-app-3f81d.firebasestorage.app",
