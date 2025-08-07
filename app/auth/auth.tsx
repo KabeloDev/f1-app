@@ -2,7 +2,7 @@ import { auth } from '@/FirebaseConfig'
 import { router } from 'expo-router'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import React, { useState } from 'react'
-import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native'
+import { Image, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 
 
 const Authentication = () => {
@@ -15,7 +15,7 @@ const Authentication = () => {
       const user = await signInWithEmailAndPassword(auth, email, password)
       if (user) {
         router.replace('/(tabs)');
-      } 
+      }
     } catch (error: any) {
       console.log(error)
       alert('Sign in failed: ' + error.message);
@@ -25,7 +25,9 @@ const Authentication = () => {
   const signUp = async () => {
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password)
-      if (user) router.replace('/(tabs)');
+      if (user) {
+        router.replace('/(tabs)');
+      }
     } catch (error: any) {
       console.log(error)
       alert('Sign in failed: ' + error.message);
@@ -34,9 +36,19 @@ const Authentication = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Image
+        source={require('@/assets/images/logo.png')}
+        style={styles.logo}
+      />
+      <View style={styles.loginMessage}>
+        <Text style={[styles.title, {marginRight: 10}]}>Get Started</Text>
+        <Image
+          source={require('@/assets/images/flag.jpg')}
+          style={styles.flag}
+        />
+      </View>
       <TextInput style={styles.textInput} placeholder="email" value={email} onChangeText={setEmail} />
-      <TextInput style={styles.textInput} placeholder="password" value={password} onChangeText={setPassword} secureTextEntry/>
+      <TextInput style={styles.textInput} placeholder="password" value={password} onChangeText={setPassword} secureTextEntry />
       <TouchableOpacity style={styles.button} onPress={signIn}>
         <Text style={styles.text}>Login</Text>
       </TouchableOpacity>
@@ -54,48 +66,62 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FAFAFA', 
+    backgroundColor: '#FAFAFA',
+  },
+  logo: {
+    height: 150,
+    width: 150,
+    bottom: 700,
+    left: 140,
+    position: 'absolute',
   },
   title: {
-    fontSize: 28, 
+    fontSize: 30,
     fontWeight: '800',
-    marginBottom: 40, 
-    color: '#1A237E', 
+    marginBottom: 40,
+    color: '#db0000ff',
   },
   textInput: {
-    height: 50, 
+    height: 50,
     width: '90%',
     backgroundColor: '#FFFFFF',
-    borderColor: '#E8EAF6', 
+    borderColor: '#E8EAF6',
     borderWidth: 2,
-    borderRadius: 15, 
+    borderRadius: 15,
     marginVertical: 15,
-    paddingHorizontal: 25, 
-    fontSize: 16, 
+    paddingHorizontal: 25,
+    fontSize: 16,
     color: '#3C4858',
-    shadowColor: '#9E9E9E', 
+    shadowColor: '#9E9E9E',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
-    elevation: 4, 
+    elevation: 4,
   },
   button: {
     width: '90%',
     marginVertical: 15,
-    backgroundColor: '#5C6BC0', 
+    backgroundColor: '#db0000ff',
     padding: 20,
-    borderRadius: 15, 
+    borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#5C6BC0', 
+    shadowColor: '#5C6BC0',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.4,
     shadowRadius: 5,
     elevation: 5,
   },
   text: {
-    color: '#FFFFFF', 
-    fontSize: 18, 
-    fontWeight: '600', 
-  }
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  loginMessage: {
+    flexDirection: 'row'
+  },
+  flag: {
+    height: 50,
+    width: 50,
+  },
 });

@@ -1,13 +1,11 @@
-import React from 'react';
-import { Platform } from 'react-native';
-
 import { HapticTab } from '@/components/HapticTab';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
-
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React from 'react';
+import { Platform } from 'react-native';
 import HomeScreen from '.';
 import DriversScreen from './drivers';
 import MeetingsScreen from './meetings';
@@ -80,3 +78,9 @@ export default function TabLayout() {
     </Tab.Navigator>
   );
 }
+
+// TODO: 
+
+
+// Styling > Authentication screen
+// Profile Screen > Update profile username, first name, last name, birthday and avatar
