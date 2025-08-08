@@ -36,7 +36,6 @@ export default function ProfileScreen() {
 
   const user = auth.currentUser;
 
-  // Fetch profile from Firestore
   useEffect(() => {
     const fetchProfile = async () => {
       if (!user) return;
@@ -64,7 +63,6 @@ export default function ProfileScreen() {
     fetchProfile();
   }, [user]);
 
-  // Save profile to Firestore with Timestamp
   const handleSave = async () => {
     if (!user) return;
     try {
@@ -72,7 +70,7 @@ export default function ProfileScreen() {
         username: userData.username,
         firstname: userData.firstname,
         lastname: userData.lastname,
-        dob: Timestamp.fromDate(userData.dob), // save as Timestamp
+        dob: Timestamp.fromDate(userData.dob),
         avatar: userData.avatar,
       });
       alert("Profile updated!");
@@ -96,13 +94,11 @@ export default function ProfileScreen() {
         style={styles.reactLogo}
       />
 
-      {/* Current Avatar */}
       <Image
         source={{ uri: userData.avatar || defaultProfileImage }}
         style={styles.avatar}
       />
 
-      {/* Avatar selection */}
       <FlatList
         data={profileImages}
         horizontal
@@ -136,27 +132,29 @@ export default function ProfileScreen() {
       />
 
 
-      {/* Text Inputs */}
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        value={userData.username}
-        onChangeText={(text) => setUserData({ ...userData, username: text })}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="First Name"
-        value={userData.firstname}
-        onChangeText={(text) => setUserData({ ...userData, firstname: text })}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Last Name"
-        value={userData.lastname}
-        onChangeText={(text) => setUserData({ ...userData, lastname: text })}
-      />
+      <View style={styles.profileForm}>
+        <TextInput
+          style={styles.input}
+          placeholder="Username"
+          value={userData.username}
+          onChangeText={(text) => setUserData({ ...userData, username: text })}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="First Name"
+          value={userData.firstname}
+          onChangeText={(text) => setUserData({ ...userData, firstname: text })}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Last Name"
+          value={userData.lastname}
+          onChangeText={(text) => setUserData({ ...userData, lastname: text })}
+        />
+      </View>
 
-      {/* DOB Picker */}
+      <Text style={styles.dobText}>Select your date of birth</Text>
+
       <TouchableOpacity onPress={() => setShowDatePicker(true)}>
         <View style={{ flexDirection: 'row' }}>
           <Ionicons style={{ marginRight: 10 }} size={50} name="calendar" />
@@ -200,8 +198,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     borderWidth: 2,
     borderColor: "transparent",
-    marginTop: 10,
-    marginLeft: 10
+    marginLeft: 10,
   },
   avatarSelected: {
     borderColor: "#007bff",
@@ -223,7 +220,7 @@ const styles = StyleSheet.create({
   center: { flex: 1, justifyContent: "center", alignItems: "center" },
   button: {
     width: '90%',
-    marginVertical: 15,
+    marginVertical: 10,
     backgroundColor: '#db0000ff',
     padding: 20,
     borderRadius: 15,
@@ -248,4 +245,7 @@ const styles = StyleSheet.create({
     left: 0,
     position: 'absolute',
   },
+  profileForm: {
+    marginTop: -50
+  }
 });
