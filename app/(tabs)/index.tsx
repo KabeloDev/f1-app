@@ -9,10 +9,10 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function HomeScreen() {
   const messages = [
-    "Welcome to Open F1! The ultimate trackside companion.",
-    "Stay updated with live race results.",
-    "Get behind-the-scenes F1 insights.",
-    "Follow your favorite teams and drivers.",
+    "Open F1, your trackside companion.",
+    "Live race results at your fingertips.",
+    "Exclusive behind-the-scenes F1.",
+    "Follow top teams and drivers."
   ];
 
   const [index, setIndex] = useState(0);
@@ -56,13 +56,14 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
-    borderRadius: 30,
+    borderBottomLeftRadius: 100,
     height: 400,
-    elevation: 50,
+    width: 400,
+    elevation: 10,
   },
   titleContainer: {
     fontSize: 25,
-    color: '#354449ff',
+    color: '#555555ff',
     padding: 50,
     marginBottom: 50,
   },
