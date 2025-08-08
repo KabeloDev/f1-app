@@ -1,27 +1,251 @@
-import { auth } from "@/FirebaseConfig";
+import { auth, db } from "@/FirebaseConfig";
+import { Ionicons } from "@expo/vector-icons";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import { router } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { doc, getDoc, setDoc, Timestamp } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-export default function ProfileScreen () {
+const defaultProfileImage =
+  "https://cdn-icons-png.flaticon.com/512/149/149071.png";
 
-    const handleSignOut = () => {
-      auth.signOut;
-      router.replace('/auth/auth');
+const profileImages = [
+  "https://img.freepik.com/premium-vector/character-avatar-isolated_729149-194801.jpg?semt=ais_hybrid",
+  "https://static.vecteezy.com/system/resources/previews/014/194/215/non_2x/avatar-icon-human-a-person-s-badge-social-media-profile-symbol-the-symbol-of-a-person-vector.jpg",
+  "https://img.freepik.com/premium-vector/avatar-teenager-icon-cartoon-style-faceless-men-isolated-white-background_98402-77340.jpg?w=360",
+  "https://static.vecteezy.com/system/resources/previews/014/342/474/non_2x/anonymous-profile-icon-cartoon-style-vector.jpg",
+  "https://static.vecteezy.com/system/resources/previews/014/194/198/non_2x/avatar-icon-human-a-person-s-badge-social-media-profile-symbol-the-symbol-of-a-person-vector.jpg",
+];
+
+export default function ProfileScreen() {
+  const handleSignOut = () => {
+    auth.signOut;
+    router.replace('/auth/auth');
+  }
+
+  const [userData, setUserData] = useState({
+    userId: "",
+    username: "",
+    firstname: "",
+    lastname: "",
+    dob: new Date(),
+    avatar: "",
+  });
+  const [loading, setLoading] = useState(true);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const user = auth.currentUser;
+
+  // Fetch profile from Firestore
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (!user) return;
+      try {
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setUserData({
+            userId: user.uid,
+            username: data.username || "",
+            firstname: data.firstname || "",
+            lastname: data.lastname || "",
+            dob: data.dob ? data.dob.toDate() : new Date(),
+            avatar: data.avatar || "",
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching profile:", error);
+      }
+      setLoading(false);
+    };
+
+    fetchProfile();
+  }, [user]);
+
+  // Save profile to Firestore with Timestamp
+  const handleSave = async () => {
+    if (!user) return;
+    try {
+      await setDoc(doc(db, "users", user.uid), {
+        username: userData.username,
+        firstname: userData.firstname,
+        lastname: userData.lastname,
+        dob: Timestamp.fromDate(userData.dob), // save as Timestamp
+        avatar: userData.avatar,
+      });
+      alert("Profile updated!");
+    } catch (error) {
+      console.error("Error saving profile:", error);
     }
+  };
 
-    return <View style={styles.body}>
-        <Text>Profile screen</Text>
-        <TouchableOpacity onPress={() => handleSignOut()}>
-          <Text>Sign Out</Text>
-        </TouchableOpacity>
+  if (loading) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator size="large" color="#007bff" />
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.container}>
+      <Image
+        source={require('@/assets/images/profile.jpg')}
+        style={styles.reactLogo}
+      />
+
+      {/* Current Avatar */}
+      <Image
+        source={{ uri: userData.avatar || defaultProfileImage }}
+        style={styles.avatar}
+      />
+
+      {/* Avatar selection */}
+      <FlatList
+        data={profileImages}
+        horizontal
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() =>
+              setUserData(function (prevData) {
+                return {
+                  userId: prevData.userId,
+                  username: prevData.username,
+                  firstname: prevData.firstname,
+                  lastname: prevData.lastname,
+                  dob: prevData.dob,
+                  avatar: item
+                };
+              })
+            }
+          >
+            <Image
+              source={{ uri: item }}
+              style={[
+                styles.avatarOption,
+                userData.avatar === item && styles.avatarSelected
+              ]}
+            />
+          </TouchableOpacity>
+        )}
+        style={{ marginVertical: 10 }}
+        showsHorizontalScrollIndicator={false}
+      />
+
+
+      {/* Text Inputs */}
+      <TextInput
+        style={styles.input}
+        placeholder="Username"
+        value={userData.username}
+        onChangeText={(text) => setUserData({ ...userData, username: text })}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="First Name"
+        value={userData.firstname}
+        onChangeText={(text) => setUserData({ ...userData, firstname: text })}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Last Name"
+        value={userData.lastname}
+        onChangeText={(text) => setUserData({ ...userData, lastname: text })}
+      />
+
+      {/* DOB Picker */}
+      <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+        <View style={{ flexDirection: 'row' }}>
+          <Ionicons style={{ marginRight: 10 }} size={50} name="calendar" />
+          <Text style={styles.dobText}>
+            {userData.dob.toDateString()}
+          </Text>
+        </View>
+      </TouchableOpacity>
+      {showDatePicker && (
+        <DateTimePicker
+          value={userData.dob}
+          mode="date"
+          display="default"
+          onChange={(event, selectedDate) => {
+            setShowDatePicker(false);
+            if (selectedDate) {
+              setUserData({ ...userData, dob: selectedDate });
+            }
+          }}
+        />
+      )}
+
+      <TouchableOpacity style={styles.button} onPress={handleSave}>
+        <Text style={styles.text}>Save</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.button} onPress={() => handleSignOut()}>
+        <Text style={styles.text}>Sign Out</Text>
+      </TouchableOpacity>
     </View>
+  );
 }
 
 const styles = StyleSheet.create({
-  body: {
-    flex: 1,
+  container: { flex: 1, padding: 20, backgroundColor: "#fff" },
+  avatar: { width: 100, height: 100, borderRadius: 50, alignSelf: "center", marginTop: 250 },
+  avatarOption: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    marginHorizontal: 5,
+    borderWidth: 2,
+    borderColor: "transparent",
+    marginTop: 10,
+    marginLeft: 10
+  },
+  avatarSelected: {
+    borderColor: "#007bff",
+    borderWidth: 2,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    padding: 10,
+    borderRadius: 8,
+    marginVertical: 5,
+  },
+  dobText: {
+    padding: 10,
+    backgroundColor: "#f5f5f5",
+    borderRadius: 8,
+    marginVertical: 5,
+  },
+  center: { flex: 1, justifyContent: "center", alignItems: "center" },
+  button: {
+    width: '90%',
+    marginVertical: 15,
+    backgroundColor: '#db0000ff',
+    padding: 20,
+    borderRadius: 15,
+    alignItems: 'center',
     justifyContent: 'center',
-    alignContent: 'center',
-    alignItems: 'center'
+    shadowColor: '#5C6BC0',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 5,
+    elevation: 5,
+    marginLeft: 20
+  },
+  text: {
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  reactLogo: {
+    height: 350,
+    width: 450,
+    bottom: 550,
+    left: 0,
+    position: 'absolute',
   },
 });
