@@ -78,9 +78,3 @@ export default function TabLayout() {
     </Tab.Navigator>
   );
 }
-
-// TODO: 
-
-
-// Styling > Authentication screen
-// Profile Screen > Update profile username, first name, last name, birthday and avatar

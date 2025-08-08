@@ -41,7 +41,7 @@ const Authentication = () => {
         style={styles.logo}
       />
       <View style={styles.loginMessage}>
-        <Text style={[styles.title, {marginRight: 10}]}>Get Started</Text>
+        <Text style={[styles.title, {marginRight: 10}]}>Start your engine!</Text>
         <Image
           source={require('@/assets/images/flag.jpg')}
           style={styles.flag}
