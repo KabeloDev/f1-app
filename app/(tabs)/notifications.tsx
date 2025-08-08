@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 export default function NotificationsScreen () {
     return <View style={styles.body}>
-        <Text>Notifications screen</Text>
+        <Text>No notifications at the moment</Text>
     </View>
 }
 
