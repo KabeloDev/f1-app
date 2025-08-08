@@ -137,19 +137,54 @@ export default function ProfileScreen() {
           style={styles.input}
           placeholder="Username"
           value={userData.username}
-          onChangeText={(text) => setUserData({ ...userData, username: text })}
+          onChangeText={(text) =>
+            setUserData(function (prevData) {
+              return {
+                userId: prevData.userId,
+                username: text,
+                firstname: prevData.firstname,
+                lastname: prevData.lastname,
+                dob: prevData.dob,
+                avatar: prevData.avatar
+              };
+            })
+          }
         />
+
         <TextInput
           style={styles.input}
           placeholder="First Name"
           value={userData.firstname}
-          onChangeText={(text) => setUserData({ ...userData, firstname: text })}
+          onChangeText={(text) =>
+            setUserData(function (prevData) {
+              return {
+                userId: prevData.userId,
+                username: prevData.username,
+                firstname: text,
+                lastname: prevData.lastname,
+                dob: prevData.dob,
+                avatar: prevData.avatar
+              };
+            })
+          }
         />
+
         <TextInput
           style={styles.input}
           placeholder="Last Name"
           value={userData.lastname}
-          onChangeText={(text) => setUserData({ ...userData, lastname: text })}
+          onChangeText={(text) =>
+            setUserData(function (prevData) {
+              return {
+                userId: prevData.userId,
+                username: prevData.username,
+                firstname: prevData.firstname,
+                lastname: text,
+                dob: prevData.dob,
+                avatar: prevData.avatar
+              };
+            })
+          }
         />
       </View>
 
@@ -171,7 +206,16 @@ export default function ProfileScreen() {
           onChange={(event, selectedDate) => {
             setShowDatePicker(false);
             if (selectedDate) {
-              setUserData({ ...userData, dob: selectedDate });
+              setUserData(function (prevData) {
+                return {
+                  userId: prevData.userId,
+                  username: prevData.username,
+                  firstname: prevData.firstname,
+                  lastname: prevData.lastname,
+                  dob: selectedDate,
+                  avatar: prevData.avatar
+                };
+              });
             }
           }}
         />
