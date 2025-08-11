@@ -50,10 +50,10 @@ export default function HomeScreen() {
       </Text>
       <View style={styles.raceBody}>
         <Text style={styles.raceText}>
-          Australian GP
+          DUTCH GRAND PRIX
         </Text>
         <Image
-          source={require('@/assets/images/countries/australia.png')}
+          source={require('@/assets/images/countries/dutch.webp')}
           style={styles.raceFlag}
         />
       </View>
@@ -88,7 +88,9 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end"
   },
   raceText: {
-    fontSize: 20,
+    fontSize: 15,
+    fontWeight: 'bold',
+    fontStyle: 'italic',
     color: '#555555ff',
     padding: 5,
     flex: 1,
