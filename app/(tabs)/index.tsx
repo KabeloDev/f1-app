@@ -9,10 +9,10 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function HomeScreen() {
   const messages = [
-    "Open F1, your trackside companion.",
+    "Open F1, your trackside companion now.",
     "Live race results at your fingertips.",
-    "Exclusive behind-the-scenes F1.",
-    "Follow top teams and drivers."
+    "Exclusive behind-the-scenes F1 today.",
+    "Follow top teams and drivers worldwide."
   ];
 
   const [index, setIndex] = useState(0);
@@ -45,7 +45,19 @@ export default function HomeScreen() {
           style={styles.logo}
         />
       </View>
-    </ParallaxScrollView>
+      <Text style={styles.raceHeading}>
+        Upcoming Race
+      </Text>
+      <View style={styles.raceBody}>
+        <Text style={styles.raceText}>
+          Australian GP
+        </Text>
+        <Image
+          source={require('@/assets/images/countries/australia.png')}
+          style={styles.raceFlag}
+        />
+      </View>
+    </ParallaxScrollView >
   );
 }
 
@@ -56,16 +68,45 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
-    borderBottomLeftRadius: 100,
-    height: 400,
+    borderBottomLeftRadius: 25,
+    height: 250,
     width: 400,
     elevation: 10,
   },
   titleContainer: {
     fontSize: 25,
     color: '#555555ff',
-    padding: 50,
-    marginBottom: 50,
+    padding: 20,
+    marginBottom: 140,
+  },
+  raceHeading: {
+    fontSize: 25,
+    color: '#555555ff',
+    padding: 5,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: "flex-end"
+  },
+  raceText: {
+    fontSize: 20,
+    color: '#555555ff',
+    padding: 5,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: "flex-end"
+  },
+  raceBody: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderBottomLeftRadius: 25,
+    height: 100,
+    width: 400,
+    elevation: 10,
+    padding: 20
   },
   reactLogo: {
     height: 400,
@@ -77,8 +118,16 @@ const styles = StyleSheet.create({
   logo: {
     height: 150,
     width: 150,
-    bottom: 0,
+    bottom: 10,
     left: 100,
     position: 'absolute',
+  },
+  raceFlag: {
+    height: 50,
+    width: 100,
+    bottom: 25,
+    left: 250,
+    position: 'absolute',
+    borderRadius: 20,
   }
 });
