@@ -18,7 +18,7 @@ const Authentication = () => {
       }
     } catch (error: any) {
       console.log(error)
-      alert('Sign in failed: ' + error.message);
+      alert('Sign in error');
     }
   }
 
@@ -30,7 +30,7 @@ const Authentication = () => {
       }
     } catch (error: any) {
       console.log(error)
-      alert('Sign in failed: ' + error.message);
+      alert('Sign up error');
     }
   }
 

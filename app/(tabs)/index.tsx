@@ -1,10 +1,8 @@
+import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { Image } from 'expo-image';
+import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { useEffect, useState } from 'react';
-
-import { useNavigation } from '@react-navigation/native';
 
 
 export default function HomeScreen() {
@@ -25,7 +23,6 @@ export default function HomeScreen() {
     return () => clearInterval(interval);
   }, []);
 
-  const navigation = useNavigation();
 
   return (
     <ParallaxScrollView
