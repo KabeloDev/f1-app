@@ -9,7 +9,6 @@ import { Platform } from 'react-native';
 import HomeScreen from '.';
 import DriversScreen from './drivers';
 import MeetingsScreen from './meetings';
-import NotificationsScreen from './notifications';
 import ProfileScreen from './profile';
 
 export default function TabLayout() {
@@ -54,15 +53,6 @@ export default function TabLayout() {
         options={{
           title: 'Meetings',
           tabBarIcon: ({ color }) => <Ionicons size={28} name="earth" color={color} />,
-        }}
-      />
-
-      <Tab.Screen
-        name="notifications"
-        component={NotificationsScreen}
-        options={{
-          title: 'Notifications',
-          tabBarIcon: ({ color }) => <Ionicons size={28} name="notifications" color={color} />,
         }}
       />
 
