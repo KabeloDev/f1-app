@@ -50,7 +50,9 @@ export default function HomeScreen() {
       </Text>
       <View style={styles.raceBody}>
         <Text style={styles.raceText}>
-          DUTCH GRAND PRIX
+          DUTCH GRAND PRIX{'\n'}
+          August 31, 2025{'\n'}
+          15:00
         </Text>
         <Image
           source={require('@/assets/images/countries/dutch.webp')}
@@ -95,7 +97,8 @@ const styles = StyleSheet.create({
     padding: 5,
     flex: 1,
     flexDirection: 'row',
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
+    marginBottom: -5
   },
   raceBody: {
     flex: 1,
