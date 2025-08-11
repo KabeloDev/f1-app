@@ -1,49 +1,26 @@
-import { Meeting } from "@/types/meeting.type";
-import { useEffect, useState } from "react";
+import { fetchMeetings } from "@/types/meeting.type";
+import { useQuery } from '@tanstack/react-query';
 import { ActivityIndicator, FlatList, Image, StyleSheet, Text, View } from "react-native";
 
 export default function MeetingsScreen() {
-  const [meetings, setMeetings] = useState<Meeting[]>([]);
-  const [loading, setLoading] = useState(true);
-  const uniqueMeetingsMap = new Map<number, Meeting>();
+  const {data: meetings, isPending, error} = useQuery({
+    queryKey: ["meetings"],
+    queryFn: fetchMeetings
+  });
 
-  useEffect(() => {
-    const fetchMeetings = async () => {
-      try {
-        const response = await fetch('https://api.openf1.org/v1/meetings?year=2025');
-        const data: Meeting[] = await response.json();
-
-        if (!response.ok) {
-          console.error('Error status code: ', response.status);
-        }
-
-        for (const meeting of data) {
-          if (
-            meeting.meeting_key &&
-            !uniqueMeetingsMap.has(meeting.meeting_key)
-          ) {
-            uniqueMeetingsMap.set(meeting.meeting_key, meeting);
-          }
-        }
-
-        const uniqueMeetings = Array.from(uniqueMeetingsMap.values());
-
-        setMeetings(uniqueMeetings);
-
-      } catch (error) {
-        console.error('Failed to fetch meetings:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchMeetings();
-  }, []);
-
-  if (loading) {
+  if (isPending) {
     return (
       <View style={styles.center}>
         <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator size="large" />
+        <Text>{error.message}</Text>
       </View>
     );
   }
