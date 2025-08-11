@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function HomeScreen() {
   const messages = [
-    "Open F1, your trackside companion now.",
+    "Open F1, your trackside companion.",
     "Live race results at your fingertips.",
     "Exclusive behind-the-scenes F1 today.",
     "Follow top teams and drivers worldwide."

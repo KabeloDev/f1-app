@@ -1,5 +1,6 @@
-import { Driver } from '@/types/driver.type';
-import React, { useEffect, useState } from 'react';
+import { fetchDrivers } from '@/types/driver.type';
+import { useQuery } from '@tanstack/react-query';
+import React from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -11,43 +12,12 @@ import {
 
 
 export default function DriversScreen() {
-  const [drivers, setDrivers] = useState<Driver[]>([]);
-  const [loading, setLoading] = useState(true);
+  
+  const {data: drivers, isPending, error} = useQuery ({
+    queryKey: ["drivers"],
+    queryFn: fetchDrivers
+  });
 
-  useEffect(() => {
-    const fetchDrivers = async () => {
-      try {
-        const response = await fetch('https://api.openf1.org/v1/drivers');
-        const data: Driver[] = await response.json();
-        const uniqueDriversMap = new Map<number, Driver>();
-
-        if (!response.ok) {
-          console.error('Error status code: ', response.status);
-        }
-
-        for (const driver of data) {
-          if (
-            driver.driver_number &&
-            driver.headshot_url &&
-            !uniqueDriversMap.has(driver.driver_number)
-          ) {
-            uniqueDriversMap.set(driver.driver_number, driver);
-          }
-        }
-
-        const uniqueDrivers = Array.from(uniqueDriversMap.values());
-
-        setDrivers(uniqueDrivers);
-
-      } catch (error) {
-        console.error('Failed to fetch drivers:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchDrivers();
-  }, []);
 
 
   const carImages: Record<string, any> = {
@@ -80,10 +50,19 @@ export default function DriversScreen() {
     'Oliver BEARMAN': require('@/assets/images/cars/bearman.webp'),
   };
 
-  if (loading) {
+  if (isPending) {
     return (
       <View style={styles.center}>
         <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  if (error) {
+     return (
+      <View style={styles.center}>
+        <ActivityIndicator size="large" />
+        <Text>{error.message}</Text>
       </View>
     );
   }
