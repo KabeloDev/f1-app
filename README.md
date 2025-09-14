@@ -1,16 +1,16 @@
-<h1>Advice Generator</h1>
+<h1>Formula 1 App</h1>
 
- ### [YouTube Demonstration](https://youtu.be/9kwwN6IHJ18)
+ ### [YouTube Demonstration](https://youtu.be/0zKzmdsiZbM)
 
 <h2>Description</h2>
-Get advice with a single tap!
+Track driver and meeting information, standings, and all things Formula 1 from your phone.
 <br />
 
 
 <h2>Languages and Utilities Used</h2>
 
-- <b>Dart & Flutter</b>
-- <b>Advice API (https://api.adviceslip.com/)</b>
+- <b>React Native</b>
+- <b>OpenF1 API (https://openf1.org/)</b>
 
 <h2>Environments Used </h2>
 
@@ -20,28 +20,28 @@ Get advice with a single tap!
 <h2>Program walk-through:</h2>
 
 <p align="center">
-Splash screen: <br/>
-<img src="https://i.imgur.com/ZNkGRsU.png" height="500%" width="100%" />
+Start-Up screen: <br/>
+<img src="https://i.imgur.com/rI6EqgK.jpeg" height="500%" width="100%" />
 <br />
 <br />
 Login screen: <br/>
-<img src="https://i.imgur.com/EQ1R0Nq.png" height="500%" width="100%" />
-<br />
-<br />
-Sign in screen: <br/>
-<img src="https://i.imgur.com/K1bRPPY.png" height="500%" width="100%" />
-<br />
-<br />
-Sign up screen: <br/>
-<img src="https://i.imgur.com/Mtcnt0E.png" height="500%" width="100%" />
+<img src="https://i.imgur.com/ebrjMMO.jpeg" height="500%" width="100%" />
 <br />
 <br />
 Home screen: <br/>
-<img src="https://i.imgur.com/AnX7Zr4.png" height="500%" width="100%" />
+<img src="https://i.imgur.com/pNomOOH.jpeg" height="500%" width="100%" />
 <br />
 <br />
-No internet: <br/>
-<img src="https://i.imgur.com/TU6xicj.png" height="500%" width="100%" />
+Drivers screen: <br/>
+<img src="https://i.imgur.com/Sl5wZLF.jpeg" height="500%" width="100%" />
+<br />
+<br />
+Meetings screen: <br/>
+<img src="https://i.imgur.com/HXJMxV6.jpeg" height="500%" width="100%" />
+<br />
+<br />
+Profile screen: <br/>
+<img src="https://i.imgur.com/8Inkd4y.jpeg" height="500%" width="100%" />
 <br />
 <br />
 
